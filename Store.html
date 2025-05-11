@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>متجر WEStLife RP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      direction: rtl;
+      background: url('../assets/images/background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #FFFFFF;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    header {
+      background: rgba(28, 37, 38, 0.9);
+      padding: 15px 20px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 0 15px rgba(30, 144, 255, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 30px;
+      height: 25px;
+      cursor: pointer;
+      z-index: 15;
+    }
+
+    .hamburger span {
+      background: #FFFFFF;
+      height: 3px;
+      width: 100%;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    .nav-menu {
+      display: flex;
+      justify-content: center;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+
+    nav ul li {
+      margin: 0 20px;
+    }
+
+    nav ul li a {
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 20px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background: linear-gradient(45deg, #1E90FF, #1C2526);
+      color: #FFFFFF;
+      box-shadow: 0 0 10px rgba(30, 144, 255, 0.7);
+    }
+
+    main {
+      padding: 100px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'Amiri', serif;
+      font-size: 48px;
+      color: #FFFFFF;
+      text-shadow: 0 0 10px #1E90FF;
+      margin-bottom: 40px;
+    }
+
+    /* أنماط متجر السيارات */
+    .cars-shop {
+      margin: 50px auto;
+      max-width: 1200px;
+      padding: 0 20px;
+    }
+
+    .cars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .car-item {
+      background: rgba(28, 37, 38, 0.8);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(30, 144, 255, 0.5);
+      transition: all 0.3s ease;
+      border: 2px solid #1E90FF;
+    }
+
+    .car-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 30px rgba(30, 144, 255, 0.8);
+    }
+
+    .car-image {
+      height: 180px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .car-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .car-item:hover .car-image img {
+      transform: scale(1.1);
+    }
+
+    .car-info {
+      padding: 20px;
+      text-align: right;
+      font-family: 'Amiri', serif;
+    }
+
+    .car-name {
+      color: #1E90FF;
+      font-size: 24px;
+      margin-bottom: 10px;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    .car-price {
+      color: #FFFFFF;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .car-desc {
+      color: #ddd;
+      font-size: 16px;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+
+    .car-stock {
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    .car-stock.in-stock {
+      color: #00FF00;
+    }
+
+    .car-stock.low-stock {
+      color: #FFA500;
+    }
+
+    .car-stock.out-of-stock {
+      color: #FF0000;
+    }
+
+    .buy-btn {
+      background: linear-gradient(45deg, #1E90FF, #1C2526);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      width: 100%;
+      text-decoration: none;
+      display: block;
+    }
+
+    .buy-btn:hover {
+      background: linear-gradient(45deg, #1C2526, #1E90FF);
+      box-shadow: 0 0 10px rgba(30, 144, 255, 0.7);
+    }
+
+    .buy-btn:disabled {
+      background: #666;
+      cursor: not-allowed;
+    }
+
+    footer {
+      background: rgba(28, 37, 38, 0.9);
+      padding: 15px 0;
+      text-align: center;
+      color: #FFFFFF;
+      font-family: 'Amiri', serif;
+      font-size: 16px;
+      text-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 250px;
+        background: rgba(28, 37, 38, 0.95);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: right 0.3s ease;
+        z-index: 10;
+        box-shadow: -5px 0 15px rgba(30, 144, 255, 0.5);
+      }
+
+      .nav-menu.active {
+        right: 0;
+      }
+
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+      }
+
+      nav ul li {
+        margin: 15px 0;
+      }
+
+      nav ul li a {
+        font-size: 22px;
+        padding: 15px;
+        display: block;
+        width: 100%;
+        text-align: center;
+      }
+
+      h1 { font-size: 36px; }
+      .cars-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav class="nav-menu">
+      <ul>
+        <li style="--i: 1;"><a href="index.html">الرئيسية</a></li>
+        <li style="--i: 3;"><a href="rules.html">القوانين</a></li>
+        <li style="--i: 4;"><a href="Serverlogin.html">دخول الخادم</a></li>
+        <li style="--i: 5;"><a href="With.html">تواصل معنا</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>متجر WEStLife RP</h1>
+
+    <div class="cars-shop">
+      <div class="cars-grid">
+        <div class="car-item">
+          <div class="car-image">
+            <img src="../assets/images/cars/car1.jpg" alt="سيارة BMW M5">
+          </div>
+          <div class="car-info">
+            <h3 class="car-name">BMW M5 2023</h3>
+            <p class="car-price">السعر: 1,250,000$</p>
+            <p class="car-desc">سيارة رياضية فاخرة بمحرك قوي 600 حصان، نظام دفع رباعي، مقاعد جلدية فاخرة</p>
+            <p class="car-stock in-stock">المتوفر: 15 وحدة</p>
+            <a href="https://discord.gg/cYkruD4s" target="_blank" class="buy-btn">شراء الآن</a>
+          </div>
+        </div>
+
+        <div class="car-item">
+          <div class="car-image">
+            <img src="../assets/images/cars/car2.jpg" alt="سيارة Mercedes G-Class">
+          </div>
+          <div class="car-info">
+            <h3 class="car-name">Mercedes G-Class 2022</h3>
+            <p class="car-price">السعر: 1,500,000$</p>
+            <p class="car-desc">سيارة دفع رباعي فاخرة، تصميم كلاسيكي عصري، فخامة وتقنية عالية</p>
+            <p class="car-stock low-stock">المتوفر: 3 وحدات</p>
+            <a href="https://discord.gg/cYkruD4s" target="_blank" class="buy-btn">شراء الآن</a>
+          </div>
+        </div>
+
+        <div class="car-item">
+          <div class="car-image">
+            <img src="../assets/images/cars/car3.jpg" alt="سيارة Audi R8">
+          </div>
+          <div class="car-info">
+            <h3 class="car-name">Audi R8 2023</h3>
+            <p class="car-price">السعر: 1,750,000$</p>
+            <p class="car-desc">سيارة سوبر رياضية بمحرك V10، أداء خارق، تصميم عدواني</p>
+            <p class="car-stock out-of-stock">نفذت من المخزن</p>
+            <button class="buy-btn" disabled>غير متاح</button>
+          </div>
+        </div>
+
+        <div class="car-item">
+          <div class="car-image">
+            <img src="../assets/images/cars/car4.jpg" alt="سيارة Porsche 911">
+          </div>
+          <div class="car-info">
+            <h3 class="car-name">Porsche 911 Turbo S</h3>
+            <p class="car-price">السعر: 2,000,000$</p>
+            <p class="car-desc">أيقونة السيارات الرياضية، أداء متميز، عجلة قيادة ديناميكية</p>
+            <p class="car-stock in-stock">المتوفر: 8 وحدات</p>
+            <a href="https://discord.gg/cYkruD4s" target="_blank" class="buy-btn">شراء الآن</a>
+          </div>
+        </div>
+
+        <div class="car-item">
+          <div class="car-image">
+            <img src="../assets/images/cars/car5.jpg" alt="سيارة Lamborghini Huracan">
+          </div>
+          <div class="car-info">
+            <h3 class="car-name">Lamborghini Huracan</h3>
+            <p class="car-price">السعر: 2,500,000$</p>
+            <p class="car-desc">سيارة خارقة بمحرك V10، تصميم مستقبلي، أداء لا يعلى عليه</p>
+            <p class="car-stock in-stock">المتوفر: 5 وحدات</p>
+            <a href="https://discord.gg/cYkruD4s" target="_blank" class="buy-btn">شراء الآن</a>
+          </div>
+        </div>
+
+        <div class="car-item">
+          <div class="car-image">
+            <img src="../assets/images/cars/car6.jpg" alt="سيارة Range Rover Sport">
+          </div>
+          <div class="car-info">
+            <h3 class="car-name">Range Rover Sport 2023</h3>
+            <p class="car-price">السعر: 1,200,000$</p>
+            <p class="car-desc">دفع رباعي فاخر، راحة قصوى، تكنولوجيا متطورة</p>
+            <p class="car-stock in-stock">المتوفر: 12 وحدة</p>
+            <a href="https://discord.gg/cYkruD4s" target="_blank" class="buy-btn">شراء الآن</a>
+          </div>
+        </div>
+        <div class="car-item">
+          <div class="car-image">
+            <img src="../assets/images/cars/car7.jpg" alt="سيارة Range Rover Sport">
+          </div>
+          <div class="car-info">
+            <h3 class="car-name">Range Rover Sport 2023</h3>
+            <p class="car-price">السعر: 1,200,000$</p>
+            <p class="car-desc">دفع رباعي فاخر، راحة قصوى، تكنولوجيا متطورة</p>
+            <p class="car-stock in-stock">المتوفر: 12 وحدة</p>
+            <a href="https://discord.gg/cYkruD4s" target="_blank" class="buy-btn">شراء الآن</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    جميع الحقوق محفوظة © 2025 سيرفر WEStLife RP
+  </footer>
+
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('active');
+      document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+    });
+
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    });
+  </script>
+</body>
+</html>

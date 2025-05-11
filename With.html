@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تواصل معنا - WEStLife RP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      direction: rtl;
+      background: url('../assets/images/background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #FFFFFF;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    header {
+      background: rgba(28, 37, 38, 0.9);
+      padding: 15px 20px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 0 15px rgba(30, 144, 255, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 30px;
+      height: 25px;
+      cursor: pointer;
+      z-index: 15;
+    }
+
+    .hamburger span {
+      background: #FFFFFF;
+      height: 3px;
+      width: 100%;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    .nav-menu {
+      display: flex;
+      justify-content: center;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+
+    nav ul li {
+      margin: 0 20px;
+    }
+
+    nav ul li a {
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 20px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background: linear-gradient(45deg, #1E90FF, #1C2526);
+      color: #FFFFFF;
+      box-shadow: 0 0 10px rgba(30, 144, 255, 0.7);
+    }
+
+    main {
+      padding: 100px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'Amiri', serif;
+      font-size: 48px;
+      color: #FFFFFF;
+      text-shadow: 0 0 10px #1E90FF;
+      margin-bottom: 40px;
+    }
+
+    .contact-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: rgba(28, 37, 38, 0.7);
+      padding: 30px;
+      border-radius: 15px;
+      border: 2px solid #1E90FF;
+      box-shadow: 0 0 20px rgba(30, 144, 255, 0.5);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: right;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 18px;
+      color: #1E90FF;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #1E90FF;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-family: 'Amiri', serif;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: #FFFFFF;
+      box-shadow: 0 0 10px rgba(30, 144, 255, 0.7);
+    }
+
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      background: linear-gradient(45deg, #1E90FF, #1C2526);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      box-shadow: 0 0 15px rgba(30, 144, 255, 0.5);
+    }
+
+    .submit-btn:hover {
+      background: linear-gradient(45deg, #1C2526, #1E90FF);
+      transform: scale(1.02);
+    }
+
+    .submit-btn:disabled {
+      background: #666;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .alert {
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+      display: none;
+    }
+
+    .alert-success {
+      background: rgba(0, 255, 0, 0.2);
+      border: 1px solid #00FF00;
+      color: #00FF00;
+    }
+
+    .alert-error {
+      background: rgba(255, 0, 0, 0.2);
+      border: 1px solid #FF0000;
+      color: #FF0000;
+    }
+
+    .cooldown-info {
+      font-size: 14px;
+      color: #FFA500;
+      margin-top: 10px;
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 250px;
+        background: rgba(28, 37, 38, 0.95);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: right 0.3s ease;
+        z-index: 10;
+        box-shadow: -5px 0 15px rgba(30, 144, 255, 0.5);
+      }
+
+      .nav-menu.active {
+        right: 0;
+      }
+
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+      }
+
+      nav ul li {
+        margin: 15px 0;
+      }
+
+      nav ul li a {
+        font-size: 22px;
+        padding: 15px;
+        display: block;
+        width: 100%;
+        text-align: center;
+      }
+
+      h1 { font-size: 36px; }
+      .contact-container { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav class="nav-menu">
+      <ul>
+        <li style="--i: 1;"><a href="index.html">الرئيسية</a></li>
+        <li style="--i: 2;"><a href="Store.html">المتجر</a></li>
+        <li style="--i: 3;"><a href="rules.html">القوانين</a></li>
+        <li style="--i: 4;"><a href="Serverlogin.html">دخول الخادم</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>تواصل معنا</h1>
+
+    <div class="contact-container">
+      <div class="alert alert-success" id="successAlert">
+        تم إرسال رسالتك بنجاح! يمكنك إرسال رسالة أخرى بعد <span id="cooldownTime">5 ساعات</span>
+      </div>
+
+      <div class="alert alert-error" id="errorAlert">
+        حدث خطأ أثناء إرسال الرسالة. يرجى المحاولة مرة أخرى لاحقاً.
+      </div>
+
+      <form id="contactForm">
+        <div class="form-group">
+          <label for="discordId">آيدي الديسكورد الخاص بك</label>
+          <input type="text" id="discordId" class="form-control" placeholder="مثال: 123456789012345678" required>
+        </div>
+
+        <div class="form-group">
+          <label for="message">رسالتك</label>
+          <textarea id="message" class="form-control" placeholder="اكتب رسالتك هنا..." required></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">
+          <i class="fas fa-paper-plane"></i> إرسال الرسالة
+        </button>
+
+        <div class="cooldown-info" id="cooldownInfo">
+          يجب الانتظار <span id="remainingTime">5 ساعات</span> قبل إرسال رسالة جديدة
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    جميع الحقوق محفوظة © 2025 سيرفر WEStLife RP
+  </footer>
+
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    const contactForm = document.getElementById('contactForm');
+    const discordIdInput = document.getElementById('discordId');
+    const messageInput = document.getElementById('message');
+    const submitBtn = document.getElementById('submitBtn');
+    const successAlert = document.getElementById('successAlert');
+    const errorAlert = document.getElementById('errorAlert');
+    const cooldownInfo = document.getElementById('cooldownInfo');
+    const cooldownTimeSpan = document.getElementById('cooldownTime');
+    const remainingTimeSpan = document.getElementById('remainingTime');
+
+    const cooldownPeriod = 5 * 60 * 60 * 1000; 
+
+    function getOrCreateUserId() {
+      let userId = localStorage.getItem('userId');
+      if (!userId) {
+        userId = 'user_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+        localStorage.setItem('userId', userId);
+      }
+      return userId;
+    }
+
+    function checkCooldown() {
+      const userId = getOrCreateUserId();
+      const cooldownData = JSON.parse(localStorage.getItem(`cooldown_${userId}`));
+
+      if (cooldownData && cooldownData.expiry > Date.now()) {
+        submitBtn.disabled = true;
+        cooldownInfo.style.display = 'block';
+        updateCooldownTimer(cooldownData.expiry - Date.now());
+      }
+    }
+
+    function updateCooldownTimer(remainingMs) {
+      const hours = Math.floor(remainingMs / (1000 * 60 * 60));
+      const minutes = Math.floor((remainingMs % (1000 * 60 * 60)) / (1000 * 60));
+      
+      const displayText = `${hours} ساعة و ${minutes} دقيقة`;
+      cooldownTimeSpan.textContent = displayText;
+      remainingTimeSpan.textContent = displayText;
+
+      if (remainingMs > 0) {
+        setTimeout(() => {
+          updateCooldownTimer(remainingMs - 1000);
+        }, 1000);
+      } else {
+        submitBtn.disabled = false;
+        cooldownInfo.style.display = 'none';
+      }
+    }
+
+    async function sendToDiscordWebhook(discordId, message) {
+      const webhookUrl = 'https://discord.com/api/webhooks/1371263345499312128/m2BoVnZRTd6x8qPSsmAFzCl2sMsCzqb2t-2pOt_MXOPkL5H1I04x7t6cNEcO6kMhgoZl';
+      
+      const isValidDiscordId = /^\d{18}$/.test(discordId);
+      const mention = isValidDiscordId ? `<@${discordId}>` : 'مجهول';
+
+      const embed = {
+        title: "رسالة جديدة من صفحة التواصل",
+        color: 0x1E90FF,
+        fields: [
+          {
+            name: "مرسل الرسالة",
+            value: mention,
+            inline: true
+          },
+          {
+            name: "آيدي الديسكورد",
+            value: discordId || 'غير معروف',
+            inline: true
+          },
+          {
+            name: "الرسالة",
+            value: message || 'لا يوجد محتوى',
+            inline: false
+          }
+        ],
+        timestamp: new Date().toISOString()
+      };
+
+      try {
+        const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            embeds: [embed],
+            content: isValidDiscordId ? `<@${discordId}>` : undefined
+          }),
+        });
+
+        return response.ok;
+      } catch (error) {
+        console.error('Error sending to Discord:', error);
+        return false;
+      }
+    }
+
+    window.addEventListener('load', () => {
+      checkCooldown();
+    });
+
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const userId = getOrCreateUserId();
+      const discordId = discordIdInput.value.trim();
+      const message = messageInput.value.trim();
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
+
+      const isSuccess = await sendToDiscordWebhook(discordId, message);
+
+      if (isSuccess) {
+        const cooldownData = {
+          expiry: Date.now() + cooldownPeriod,
+          userId: userId
+        };
+        localStorage.setItem(`cooldown_${userId}`, JSON.stringify(cooldownData));
+        
+        successAlert.style.display = 'block';
+        errorAlert.style.display = 'none';
+        contactForm.reset();
+        
+        updateCooldownTimer(cooldownPeriod);
+      } else {
+        errorAlert.style.display = 'block';
+        successAlert.style.display = 'none';
+        submitBtn.disabled = false;
+      }
+
+      submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> إرسال الرسالة';
+    });
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('active');
+      document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+    });
+
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    });
+  </script>
+</body>
+</html>
